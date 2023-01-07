@@ -7,6 +7,14 @@
 ```
 git clone https://github.com/AlexandrSharganov/uptrade_test.git
 ```
+- установить виртуальное окружение и активировать его:
+
+Например:
+```
+python -m venv venv
+
+. venv/Scripts/activate
+```
 - установить зависимости:
 ```
 pip install -r requirements.txt
