@@ -1,0 +1,47 @@
+{% load static %}
+
+{% if pk == None %}
+  {% for i in menu %}
+    <div class="menu_container">
+      <div class="menu_link">
+          <a class='link_class' href="{% url 'menu_app:index_second_item' i.pk %}">{{ i }}</a>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  {% for i in menu %}
+    <div class="menu_container">
+      {% if i.pk == pk %}
+        <div class="menu_link">
+          <a class='link_class'>{{ i }}</a>
+        </div>
+      {% else %}
+        <div class="menu_link">
+          <a class='link_class' href="{% url 'menu_app:index_second_item' i.pk %}">{{ i }}</a>
+        </div>
+      {% endif %}
+      {% if i.pk == pk %}
+        {% for j in i.items.all %}
+          <div class="first_lvl_menu item_link">
+            <a class='link_class' href="#">{{ j }}</a>
+          </div>
+        {% endfor %}
+        {% for k in i.submenu.all %}
+          <div class="menu_link first_lvl_menu">
+            <a class='link_class' href="{% url 'menu_app:index_second_item' k.pk %}">{{ k }}</a>
+          </div>
+          {% for g in k.items.all %}
+            <div class="second_lvl_menu item_link">
+              <a class='link_class' href="#">{{ g }}</a>
+            </div>
+          {% endfor %}
+          {% for h in k.submenu.all  %}
+          <div class="menu_link second_lvl_menu">
+            <a class='link_class' href="{% url 'menu_app:index_second_item' h.pk %}">{{ h }}</a>
+          </div>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endif %}

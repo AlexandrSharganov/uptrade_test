@@ -1,0 +1,43 @@
+{% load static %}
+
+
+{% if pk == None %}
+  {% for i in menu %}
+    <div class="menu_link">
+      <a class='link_class' href="{% url 'menu_app:menu_app_name' i.pk %}">{{ i }}</a>
+    </div>
+    <hr>
+  {% endfor %}
+
+{% else %}
+  <h2 class='main'> {{ menu }} </h2>
+  {% for i in menu.items.all %}
+    <div class="item_link">
+        <a class='link_class' href="#">{{ i }}</a>
+    </div>
+  {% endfor %}
+  {% for i in menu.submenu.all %}
+    <div class="menu_link">
+      <a class='link_class' href="{% url 'menu_app:menu_app_name' i.pk %}">{{ i }}</a>
+    </div>
+    {% for j in i.items.all %}
+      <div class="first_lvl_menu item_link">
+        <a class='link_class' href="#">{{ j }}</a>
+      </div>
+    {% endfor %}
+    {% for g in i.submenu.all  %}
+      <div class="menu_link first_lvl_menu">
+        <a class='link_class' href="{% url 'menu_app:menu_app_name' g.pk %}">{{ g }}</a>
+      </div>
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+<br>
+<br>
+<br>
+<br>
+
+<h1 class='main'> <a href="{% url 'menu_app:index_second' %}">Второй вариант </h1>
+
+
